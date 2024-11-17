@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes blink {
+    0%, 100% { height: 5px; }
+    50% { height: 1px; }
+  }
+
+  @keyframes heart-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  @keyframes dance {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #f6f8ff 0%, #f1f5ff 100%);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding: 1rem;
+  }
+  
+  .card {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: clamp(16px, 5vw, 20px);
+    padding: clamp(20px, 5vw, 40px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Chibi Couple Container */
+  .chibi-container {
+    position: relative;
+    width: 100%;
+    height: clamp(120px, 30vw, 150px);
+    margin: clamp(10px, 3vw, 20px) auto;
+    display: flex;
+    justify-content: center;
+    gap: clamp(10px, 3vw, 20px);
+  }
+
+  /* Chibi Character Base */
+  .chibi {
+    position: relative;
+    width: clamp(80px, 25vw, 120px);
+    height: 100%;
+    animation: dance 3s ease-in-out infinite;
+    text-align: center;
+  }
+
+  .chibi.boy { animation-delay: -1.5s; }
+
+  /* Character Names */
+  .name {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    font-size: clamp(12px, 3.5vw, 14px);
+    color: #FF4B6E;
+    font-weight: bold;
+  }
+
+  /* Chibi Head */
+  .head {
+    position: absolute;
+    width: clamp(60px, 15vw, 80px);
+    height: clamp(60px, 15vw, 80px);
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 3s ease-in-out infinite;
+  }
+
+  .boy .head { 
+    background: #FFE5E5;
+    animation-delay: -1s;
+  }
+  
+  .girl .head { 
+    background: #FFD1DC;
+    animation-delay: -0.5s;
+  }
+
+  /* Chibi Face */
+  .eyes {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 20%;
+  }
+
+  .eye {
+    width: clamp(3px, 1vw, 5px);
+    height: clamp(3px, 1vw, 5px);
+    background: #333;
+    border-radius: 50%;
+    animation: blink 3s infinite;
+  }
+
+  .boy .eye { animation-delay: -0.5s; }
+  .girl .eye { animation-delay: -1s; }
+
+  .blush {
+    position: absolute;
+    width: clamp(10px, 3vw, 15px);
+    height: clamp(5px, 1.5vw, 7px);
+    background: #FFB6C1;
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+
+  .blush.left { left: 15%; top: 50%; }
+  .blush.right { right: 15%; top: 50%; }
+
+  /* Floating Hearts */
+  .floating-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .floating-heart {
+    position: absolute;
+    color: #FF4B6E;
+    font-size: clamp(16px, 4vw, 20px);
+    animation: heart-float 3s ease-in-out infinite;
+  }
+
+  .floating-heart:nth-child(1) { left: 20%; top: 20%; animation-delay: -1s; }
+  .floating-heart:nth-child(2) { left: 50%; top: 10%; animation-delay: -2s; }
+  .floating-heart:nth-child(3) { right: 20%; top: 30%; animation-delay: -3s; }
+
+  /* Text Styles */
+  h1 {
+    margin: clamp(10px, 3vw, 20px) 0;
+    color: #FF4B6E;
+    font-size: clamp(20px, 5vw, 28px);
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .message {
+    color: #4A4A4A;
+    font-size: clamp(14px, 3.5vw, 16px);
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: clamp(15px, 4vw, 30px);
+  }
+  
+  .message p {
+    margin-bottom: clamp(10px, 3vw, 15px);
+  }
+  
+  .signature {
+    text-align: center;
+    color: #8A8A8A;
+    font-style: italic;
+    font-size: clamp(14px, 3.5vw, 16px);
+  }
+
+  /* Decorative Elements */
+  .hearts {
+    position: absolute;
+    top: clamp(-10px, -3vw, -20px);
+    right: clamp(-10px, -3vw, -20px);
+    width: clamp(40px, 12vw, 60px);
+    height: clamp(40px, 12vw, 60px);
+    background: #FF4B6E;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: clamp(16px, 4vw, 24px);
+    box-shadow: 0 10px 20px rgba(255,75,110,0.3);
+    animation: pulse 2s infinite;
+  }
+  
+  .decoration {
+    position: absolute;
+    bottom: clamp(-5px, -2vw, -10px);
+    left: clamp(-5px, -2vw, -10px);
+    width: clamp(50px, 15vw, 80px);
+    height: clamp(50px, 15vw, 80px);
+    border-radius: 50%;
+    background: linear-gradient(45deg, #FFD1D9, #FF4B6E);
+    opacity: 0.2;
+  }
+
+  /* Extra Small Screens */
+  @media screen and (max-width: 320px) {
+    .card {
+      padding: 15px;
+    }
+    
+    .chibi-container {
+      height: 100px;
+    }
+    
+    .message {
+      font-size: 12px;
+    }
+    
+    .signature {
+      font-size: 12px;
+    }
+  }
+
+  /* Larger Screens */
+  @media screen and (min-width: 768px) {
+    .card {
+      padding: 40px;
+    }
+    
+    .chibi-container {
+      height: 150px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card, .hearts, .chibi, .head, .floating-heart {
+      animation: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="hearts">❤️</div>
+    
+    <div class="chibi-container">
+      <!-- Boy Chibi -->
+      <div class="chibi boy">
+        <div class="head">
+          <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+          <div class="blush left"></div>
+          <div class="blush right"></div>
+        </div>
+        <div class="name">Pyypp</div>
+      </div>
+
+      <!-- Girl Chibi -->
+      <div class="chibi girl">
+        <div class="head">
+          <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+          <div class="blush left"></div>
+          <div class="blush right"></div>
+        </div>
+        <div class="name">Nala</div>
+      </div>
+
+      <!-- Floating Hearts -->
+      <div class="floating-hearts">
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">❤️</div>
+      </div>
+    </div>
+
+    <h1>Happy 11 Month</h1>
+    <div class="message">
+      <p>Cayanggkuu cintakuu, cayanggg maafin pyypp tadi mau tulis suratnaa tapi pulpen pyypp hilang cayanggg, but pyypp bikinin surat ini anak sisfo cekaliii dong.</p>
+      <p>Cayanggkuu semoga happyy dan bahagia selalu sama pyypp selalu abadi selamanaa cayanggkuu. dan semoga kebagiaan selalu menyertai setiap langkah kita cayanggkuu yaa. semoga seneng gift dari pyypp hehe cayangg itu giftna, pyypp inget cayangggkuu sering beliin buat pyypp semoga happy cintakuu.</p>
+    </div>
+    <div class="signature">
+      loveeee uuu cayangggkuuu cintakuuuu<br>
+      pyypppnaaa cayangggg
+    </div>
+    <div class="decoration"></div>
+  </div>
+</body>
+</html>
